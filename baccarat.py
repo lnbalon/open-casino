@@ -8,6 +8,7 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
+
 def shuffle_shoe(n_decks=8):
     cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K']
     deck = cards * 4
@@ -49,27 +50,27 @@ def deal_game(shoe):
         banker_pair = 0
 
     # calculate the player score
-    player_score = sum(player)%10
-    banker_score = sum(banker)%10
+    player_score = sum(player) % 10
+    banker_score = sum(banker) % 10
 
     # If either the player or banker is dealt a total of eight or nine,
     # both the player and banker stand (i.e. a "Natural"). This rule
     # overrules all others.
     if player_score >= 8 or banker_score >= 8:
 
-        result = {'player':sum(player)%10,
-                  'banker':sum(banker)%10,
-                  'player_pair' : player_pair,
-                  'banker_pair' : banker_pair}
+        result = {'player': sum(player) % 10,
+                  'banker': sum(banker) % 10,
+                  'player_pair': player_pair,
+                  'banker_pair': banker_pair}
 
     # If player has 6 or 7, he stands. Banker stands
     # if he also has 6 or 7.
     elif player_score >= 6 and banker_score >= 6:
 
-        result = {'player':sum(player)%10,
-                  'banker':sum(banker)%10,
-                  'player_pair' : player_pair,
-                  'banker_pair' : banker_pair}
+        result = {'player': sum(player) % 10,
+                  'banker': sum(banker) % 10,
+                  'player_pair': player_pair,
+                  'banker_pair': banker_pair}
 
     # If a player stands, the banker can only draw a hand
     # with a score of 5 and below.
@@ -90,40 +91,38 @@ def deal_game(shoe):
 
         # If banker's first two cards totals 3 and if player_draw
         # is in [1,2,3,4,5,6,7,9,10] banker draws.
-        elif banker_score == 3 and player_draw in [1,2,3,4,5,6,7,9,10]:
+        elif banker_score == 3 and player_draw in [1, 2, 3, 4, 5, 6, 7, 9, 10]:
 
             banker.append(card_converter(shoe.pop()))
 
         # If banker's first two cards totals 4 and if player_draw
         # is in [2,3,4,5,6,7] banker draws.
-        elif banker_score == 4 and player_draw in [2,3,4,5,6,7]:
+        elif banker_score == 4 and player_draw in [2, 3, 4, 5, 6, 7]:
 
             banker.append(card_converter(shoe.pop()))
 
         # If banker's first two cards totals 5 and if player_draw
         # is in [4,5,6,7] banker draws.
-        elif banker_score == 5 and player_draw in [4,5,6,7]:
+        elif banker_score == 5 and player_draw in [4, 5, 6, 7]:
 
             banker.append(card_converter(shoe.pop()))
 
         # If banker's first two cards totals 6 and if player_draw
         # is in [6,7] banker draws.
-        elif banker_score == 6 and player_draw in [6,7]:
+        elif banker_score == 6 and player_draw in [6, 7]:
 
             banker.append(card_converter(shoe.pop()))
 
         # If banker score is 7 then he stands.
         elif banker_score == 7:
-
             pass
 
-
-    result = {'player':sum(player)%10,
-              'banker':sum(banker)%10,
+    result = {'player': sum(player) % 10,
+              'banker': sum(banker) % 10,
               'player_card': player,
               'banker_card': banker,
-              'player_pair' : player_pair,
-              'banker_pair' : banker_pair}
+              'player_pair': player_pair,
+              'banker_pair': banker_pair}
 
     return result
 
@@ -136,7 +135,7 @@ def simulator(number_shoe=10):
 
     while number_shoe > 0:
 
-        shoe = shoe_shuffler()
+        shoe = shuffle_shoe()
 
         while len(shoe) > 10:
 
