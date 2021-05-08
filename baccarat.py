@@ -1,12 +1,4 @@
 import random
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import os
-import warnings
-
-warnings.filterwarnings('ignore')
 
 
 def shuffle_shoe(n_decks=8):
@@ -25,7 +17,8 @@ def deal_game(shoe):
     banker = []
 
     # define a card converter function
-    card_converter = lambda card: 10 if card in ['J','Q','K'] else card
+    def card_converter(card):
+        return 10 if card in ['J', 'Q', 'K'] else card
 
     # deal the first four cards
     card1 = shoe.pop()
@@ -62,6 +55,7 @@ def deal_game(shoe):
                   'banker': sum(banker) % 10,
                   'player_pair': player_pair,
                   'banker_pair': banker_pair}
+        return result
 
     # If player has 6 or 7, he stands. Banker stands
     # if he also has 6 or 7.
@@ -71,7 +65,7 @@ def deal_game(shoe):
                   'banker': sum(banker) % 10,
                   'player_pair': player_pair,
                   'banker_pair': banker_pair}
-
+        return result
     # If a player stands, the banker can only draw a hand
     # with a score of 5 and below.
     elif player_score >= 6 and banker_score <= 5:
@@ -134,23 +128,21 @@ def simulator(number_shoe=10):
     ties = 0
 
     while number_shoe > 0:
-
         shoe = shuffle_shoe()
 
         while len(shoe) > 10:
-
-            result = game(shoe)
+            result = deal_game(shoe)
             if result['player'] > result['banker']:
                 player_wins += 1
-
             elif result['player'] < result['banker']:
                 banker_wins += 1
-
             else:
                 ties += 1
-
         number_shoe -= 1
-
     total = player_wins + banker_wins + ties
     return player_wins / total, banker_wins / total, ties / total
 
+
+if __name__ == '__main__':
+
+    print(simulator(number_shoe=1000))
