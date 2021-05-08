@@ -144,5 +144,6 @@ def simulator(number_shoe=10):
 
 
 if __name__ == '__main__':
-
-    print(simulator(number_shoe=1000))
+    import sys
+    n_shoes = int(sys.argv[1])
+    print(simulator(number_shoe=n_shoes))
