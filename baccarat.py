@@ -6,7 +6,6 @@ def shuffle_shoe(n_decks=8):
     deck = cards * 4
     shoe = deck * n_decks
     random.shuffle(shoe)
-
     return shoe
 
 
